@@ -20,8 +20,7 @@ async function getFaturaById(params) {
   const sql = 'select * from faturas where id = $1'
   const resposta = await db.query(sql,[params.id])
   return resposta.rows
-  
-}
+} 
 
 async function createFatura (params) {
   const { venda_id, usuario_id, valor_fatura, status, data_vencimento, data_pagamento } = params

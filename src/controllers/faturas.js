@@ -7,7 +7,12 @@ async function getFaturas (req, res) {
       usuario_id: req.usuario.id,
       tipo_acesso: req.usuario.tipo_acesso
     })
-
+if (!faturas.length) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Usuário não possui faturas'
+      })
+    }
     return res.status(200).json({
       status: 'ok',
       data: faturas
@@ -68,10 +73,7 @@ if (!vendaExiste.length) {
 }
 
 const hoje = new Date()
-hoje.setHours(0, 0, 0, 0)
-
 const dataVencimento = new Date(req.body.data_vencimento)
-dataVencimento.setHours(0, 0, 0, 0)
 
 if (dataVencimento < hoje) {
   return res.status(400).json({
